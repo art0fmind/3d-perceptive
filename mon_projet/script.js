@@ -1,14 +1,17 @@
+// Sélection du conteneur où afficher la scène
+const container = document.getElementById("scene-container");
+
 // Création de la scène
 const scene = new THREE.Scene();
 
 // Création de la caméra
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+camera.position.z = 3;
 
 // Création du rendu WebGL
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+renderer.setSize(300, 300);
+container.appendChild(renderer.domElement);
 
 // Création du cube
 const geometry = new THREE.BoxGeometry();
@@ -25,11 +28,3 @@ function animate() {
 }
 
 animate();
-
-// Ajuster la taille lors du redimensionnement de la fenêtre
-window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-});
-
