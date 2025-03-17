@@ -9,19 +9,19 @@ const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 camera.position.z = 3;
 
 // Création du rendu WebGL
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(300, 300);
 container.appendChild(renderer.domElement);
 
-// Création du cube transparent (pour ne voir que les arêtes)
+// Création du cube semi-transparent
 const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false, transparent: true, opacity: 0 });
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.3 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-// Création des arêtes du cube
+// Création des arêtes du cube (en bleu)
 const edgesGeometry = new THREE.EdgesGeometry(geometry);
-const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff, linewidth: 2 });
+const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
 const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
 scene.add(edges);
 
