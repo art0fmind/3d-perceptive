@@ -13,17 +13,25 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(300, 300);
 container.appendChild(renderer.domElement);
 
-// Création du cube
+// Création du cube transparent (pour ne voir que les arêtes)
 const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false, transparent: true, opacity: 0 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+
+// Création des arêtes du cube
+const edgesGeometry = new THREE.EdgesGeometry(geometry);
+const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff, linewidth: 2 });
+const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+scene.add(edges);
 
 // Animation du cube
 function animate() {
     requestAnimationFrame(animate);
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+    edges.rotation.x = cube.rotation.x;
+    edges.rotation.y = cube.rotation.y;
     renderer.render(scene, camera);
 }
 
